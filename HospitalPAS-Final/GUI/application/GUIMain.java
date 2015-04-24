@@ -19,7 +19,7 @@ import javafx.scene.Scene;
 
 public class GUIMain extends Application {
 
-	public final static int REFRESHTIME = 1000;
+
 
 	/**
 	 * the limit number of treatment room,it is global variable
@@ -109,7 +109,7 @@ public class GUIMain extends Application {
 				while (true) {
 					try {
 
-						Thread.sleep(REFRESHTIME);
+						Thread.sleep(Constants.REFRESHTIME);
 						refresh();
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
@@ -129,7 +129,7 @@ public class GUIMain extends Application {
 				while (true) {
 
 					try {
-						Thread.sleep(REFRESHTIME);
+						Thread.sleep(Constants.REFRESHTIME);
 						if (patientQueue
 								.patientNumberWaitingMoreThanUpperMinutes() >= 2) {
 							System.out.println("Add hospital manager send alert");
@@ -155,12 +155,11 @@ public class GUIMain extends Application {
 	}
 
 	/**
-	 * the method is used to get all staffs in PAS
-	 * 
-	 * @author Jiang Zhe Heng
-	 * @return
+	 * PAUL 
+	 * Can you find out where this goes and move it? 
+	 * Cheers
 	 */
-	private static List<Staff> getAllStaff() {
+	/*private static List<Staff> getAllStaff() {
 		List<Staff> allStaff = new ArrayList<Staff>();
 		String url = "jdbc:mysql://web2.eeecs.qub.ac.uk/40108307";
 		Connection con;
@@ -205,12 +204,9 @@ public class GUIMain extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+	*/
 
-	/**
-	 * Calculate the waiting time
-	 * 
-	 * @author Jiang Zhe Heng
-	 */
+	
 	public void calculateStatus() {
 		if (patientQueue.size() <= 10) {
 			// find the longest waiting time
@@ -234,9 +230,5 @@ public class GUIMain extends Application {
 		}
 	}
 	
-	public void TreatmentRoomThread(){
-		
-		
-		
-	}
+	
 }

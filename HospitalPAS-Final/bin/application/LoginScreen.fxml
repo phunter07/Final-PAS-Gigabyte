@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginPageControl">
+  <children>
+    <AnchorPane prefHeight="453.0" prefWidth="468.0">
+      <children>
+        <AnchorPane prefHeight="453.0" prefWidth="468.0" style="-fx-background-color: white;">
+          <children>
+            <VBox layoutX="34.0" layoutY="86.0" prefHeight="291.0" prefWidth="402.0">
+              <children>
+                <AnchorPane prefHeight="326.0" prefWidth="412.0">
+                  <children>
+                    <Label layoutX="72.0" layoutY="61.0" prefHeight="28.0" prefWidth="109.0" text="Username" textFill="#142dcd">
+                      <font>
+                        <Font name="Calibri" size="24.0" fx:id="x1" />
+                      </font>
+                    </Label>
+                    <Label font="$x1" layoutX="72.0" layoutY="146.0" text="Password" textFill="#150eda" />
+                    <TextField fx:id="username" layoutX="73.0" layoutY="97.0" prefHeight="31.0" prefWidth="262.0" />
+                    <Button fx:id="LoginButton" layoutX="72.0" layoutY="247.0" mnemonicParsing="false" onAction="#LoginButtonOnClick" text="Login" textFill="#120ee8">
+                      <font>
+                        <Font size="24.0" />
+                      </font>
+                    </Button>
+                    <PasswordField fx:id="password" layoutX="73.0" layoutY="183.0" prefHeight="31.0" prefWidth="262.0" />
+                    <Hyperlink layoutX="215.0" layoutY="214.0" text="Forgot password?" textFill="#310bda">
+                      <font>
+                        <Font size="14.0" />
+                      </font>
+                    </Hyperlink>
+                    <Label fx:id="invalidMess" focusTraversable="false" labelFor="$invalidMess" layoutX="192.0" layoutY="261.0" prefHeight="20.000091552734375" prefWidth="166.0" text="" textFill="RED" />
+                  </children>
+                </AnchorPane>
+              </children>
+            </VBox>
+            <ImageView fitHeight="70.0" fitWidth="300.0" layoutX="28.0" layoutY="28.0" pickOnBounds="false" preserveRatio="false">
+              <image>
+                <Image url="@hscportallogo.gif" />
+              </image>
+            </ImageView>
+          </children>
+        </AnchorPane>
+      </children>
+    </AnchorPane>
+  </children>
+</AnchorPane>

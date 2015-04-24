@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.paint.*?>
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="488.0" prefWidth="687.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="receptionistPage.SetTriageControl">
+  <!-- TODO Add Nodes -->
+  <children>
+    <TableView fx:id="patientTable" layoutX="14.0" layoutY="14.0" prefHeight="238.0" prefWidth="656.0">
+      <columns>
+        <TableColumn fx:id="nhs_number" prefWidth="83.0" text="NHS_number" />
+        <TableColumn fx:id="title" maxWidth="5000.0" minWidth="10.0" prefWidth="68.0" text="title" />
+            <TableColumn fx:id="first_name" prefWidth="81.0" text="first_name" />
+            <TableColumn fx:id="last_name" prefWidth="75.0" text="last_name" />
+            <TableColumn fx:id="address" prefWidth="200.0" text="address" />
+            <TableColumn fx:id="telephone" minWidth="5.0" prefWidth="76.0" text="telephone" />
+            <TableColumn fx:id="allergies" prefWidth="75.0" text="allergies" />
+            <TableColumn fx:id="blood_group" prefWidth="100.0" text="blood_group" />
+      </columns>
+    </TableView>
+    <Button fx:id="okButton" cancelButton="false" defaultButton="false" layoutX="253.0" layoutY="440.0" mnemonicParsing="false" onAction="#okOnClick" prefHeight="34.0" prefWidth="56.0" text="OK" textAlignment="LEFT" wrapText="false" />
+    <Label layoutX="230.0" layoutY="291.0" text="NHS Number" />
+    <Label layoutX="249.0" layoutY="335.0" text="Triage" />
+    <ChoiceBox fx:id="triageChoiceBox" layoutX="315.0" layoutY="331.0">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+          <String fx:value="Item 1" />
+          <String fx:value="Item 2" />
+          <String fx:value="Item 3" />
+        </FXCollections>
+      </items>
+    </ChoiceBox>
+    <Button fx:id="cancelButton" layoutX="459.0" layoutY="440.0" mnemonicParsing="false" onAction="#cancelOnClick" prefHeight="34.0" prefWidth="56.0" text="Cancel" />
+      <Label fx:id="warning" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="371.0" prefHeight="61.0" prefWidth="664.0" textAlignment="CENTER" textFill="RED" wrapText="true">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="nhsNumber" layoutX="315.0" layoutY="287.0" prefWidth="150.0" />
+  </children>
+</AnchorPane>

@@ -66,9 +66,9 @@ public class Staff extends Person implements ILogin, IDisplay {
 	 * @param telephone
 	 * @param team
 	 */
-	public Staff(int staffID, String password, String role, String email,
+	public Staff(String title, String firstName, String lastName, char gender, int staffID, String password, String role, String email,
 			String telephone, String team) {
-		super();
+		super(title, firstName, lastName, gender);
 		this.staffID = staffID;
 		this.password = password;
 		this.role = role;

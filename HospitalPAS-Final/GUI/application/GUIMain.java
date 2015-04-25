@@ -158,6 +158,8 @@ public class GUIMain extends Application {
 	 * PAUL 
 	 * Can you find out where this goes and move it? 
 	 * Cheers
+	 * 
+	 * 
 	 */
 	/*private static List<Staff> getAllStaff() {
 		List<Staff> allStaff = new ArrayList<Staff>();
@@ -200,11 +202,13 @@ public class GUIMain extends Application {
 		}
 		return allStaff;
 	}
-
+*/
+	
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
-	*/
+	
 
 	
 	public void calculateStatus() {

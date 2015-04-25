@@ -25,10 +25,12 @@ public class Nurse extends Staff implements IStaffOnCall {
 	 * @param gender
 	 * @param staffID
 	 * @param password
+	 * @param role
+	 * 
 	 */
-	public Nurse(String title, String firstName, String lastName, char gender,
-			int staffID, String password) {
-		super(title, firstName, lastName, gender, staffID, password);
+	public Nurse(String title, String firstName, String lastName, char gender, int staffID, String password, String role, String email,
+			String telephone, String team) {
+		super(title, firstName, lastName, gender, staffID, password, role, email, telephone, team);
 
 	}
 

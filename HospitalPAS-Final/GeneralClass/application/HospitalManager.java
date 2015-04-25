@@ -9,29 +9,13 @@ public class HospitalManager extends Staff implements IManager {
 
 	}
 
-	public HospitalManager(String title, String firstName, String lastName,
-			char gender, int staffID, String password, int contactNum,
-			String email) {
-		super(title, firstName, lastName, gender, staffID, password);
-		this.contactNum = contactNum;
-		this.email = email;
+	public HospitalManager(String title, String firstName, String lastName, char gender, int staffID, String password, String role, String email,
+			String telephone, String team) {
+		super(title, firstName, lastName, gender, staffID, password, role, email, telephone, team);
+	
 	}
 
-	public int getContactNum() {
-		return contactNum;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public void setContactNum(int contactNum) {
-		this.contactNum = contactNum;
-	}
+	
 
 	@Override
 	public void assignStaff() {

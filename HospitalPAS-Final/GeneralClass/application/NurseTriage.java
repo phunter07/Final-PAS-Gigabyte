@@ -1,7 +1,6 @@
 package application;
 
 import java.util.Comparator;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -31,9 +30,9 @@ public class NurseTriage extends Staff implements ITriage, IJDoe, ICategorise {
 	 * @param staffID
 	 * @param password
 	 */
-	public NurseTriage(String title, String firstName, String lastName,
-			char gender, int staffID, String password) {
-		super(title, firstName, lastName, gender, staffID, password);
+	public NurseTriage(String title, String firstName, String lastName, char gender, int staffID, String password, String role, String email,
+			String telephone, String team) {
+		super(title, firstName, lastName, gender, staffID, password, role, email, telephone, team);
 
 	}
 

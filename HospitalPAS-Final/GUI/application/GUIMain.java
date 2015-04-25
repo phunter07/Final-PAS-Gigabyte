@@ -19,8 +19,6 @@ import javafx.scene.Scene;
 
 public class GUIMain extends Application {
 
-
-
 	/**
 	 * the limit number of treatment room,it is global variable
 	 */
@@ -48,7 +46,7 @@ public class GUIMain extends Application {
 	 * all patient in PAS,it is global variable
 	 */
 	public static List<Patient> allPatientList;
-	
+
 	/**
 	 * Array List to hold all staff members
 	 */
@@ -60,11 +58,16 @@ public class GUIMain extends Application {
 	public static String alert;
 
 	/**
+	 * instance of writeQueueToFile class
+	 */
+	private WriteQueueToFile queueToFile;
+
+	/**
 	 * status in PAS,it is global variable
 	 */
 	public static Integer status;
-	
-	//List<Staff> staffs = new ArrayList<Staff>();
+
+	// List<Staff> staffs = new ArrayList<Staff>();
 
 	public static Patient nextPatient;
 	public static Staff user;
@@ -76,7 +79,7 @@ public class GUIMain extends Application {
 	 */
 	public void start(Stage primaryStage) {
 		allPatientList = new ArrayList<Patient>();
-		allPatientList = new ArrayList<Patient>(); //why is this in twice?
+		allPatientList = new ArrayList<Patient>(); // why is this in twice?
 		patientQueue = new PatientQueue();
 		treatmentRoom = new TreatmentRoom[NUMBERS_OF_ROOM];
 		allStaff = new ArrayList<Staff>();
@@ -139,7 +142,8 @@ public class GUIMain extends Application {
 						Thread.sleep(Constants.REFRESHTIME);
 						if (patientQueue
 								.patientNumberWaitingMoreThanUpperMinutes() >= 2) {
-							System.out.println("Add hospital manager send alert");
+							System.out
+									.println("Add hospital manager send alert");
 
 							Thread.sleep(5 * 60 * 1000);
 						}
@@ -158,66 +162,45 @@ public class GUIMain extends Application {
 
 	public void refresh() {
 		patientQueue.sort(new SortPatientComparator());
+		queueToFile.writeQueue(allPatientList);
 		calculateStatus();
 	}
 
 	/**
-	 * PAUL 
-	 * Can you find out where this goes and move it? 
-	 * Cheers
+	 * PAUL Can you find out where this goes and move it? Cheers
 	 * 
 	 * 
 	 */
-	/*private static List<Staff> getAllStaff() {
-		List<Staff> allStaff = new ArrayList<Staff>();
-		String url = "jdbc:mysql://web2.eeecs.qub.ac.uk/40108307";
-		Connection con;
-		Statement stmt;
-		// loading driver
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (java.lang.ClassNotFoundException e) {
-			System.err.print("ClassNotFoundException: ");
-			System.err.println(e.getMessage());
-		}
-		// making the connection
-		try {
-			con = DriverManager.getConnection(url, "40108307", "CZB6355");
-			// create a statement object
-			stmt = con.createStatement();
-			// supply the statement object with a string to execute
-			Staff staff = new Staff();
-			ResultSet rs = stmt.executeQuery("select * from STAFF");
-			while (rs.next()) {
-				staff.setStaffID(Integer.parseInt(rs.getString("STAFF_ID")));
-				staff.setTitle(rs.getString("TITLE"));
-				staff.setFirstName(rs.getString("FIRST_NAME"));
-				staff.setLastName(rs.getString("LAST_NAME"));
-				staff.setPassword(rs.getString("STAFF_PASSWORD"));
-				staff.setRole(rs.getString("STAFF_ROLE"));
-				staff.setTeam(rs.getString("STAFF_TEAM"));
-				staff.setEmail(rs.getString("EMAIL_ADDRESS"));
-				staff.setTelephone(rs.getString("TELEPHONE"));
-				allStaff.add(staff);
-			}
-			// close statement object
-			stmt.close();
-			// close connection
-			con.close();
-		} catch (SQLException ex) {
-			System.err.println("SQLException: " + ex.getMessage());
-		}
-		return allStaff;
-	}
-*/
-	
-	
+	/*
+	 * private static List<Staff> getAllStaff() { List<Staff> allStaff = new
+	 * ArrayList<Staff>(); String url =
+	 * "jdbc:mysql://web2.eeecs.qub.ac.uk/40108307"; Connection con; Statement
+	 * stmt; // loading driver try { Class.forName("com.mysql.jdbc.Driver"); }
+	 * catch (java.lang.ClassNotFoundException e) {
+	 * System.err.print("ClassNotFoundException: ");
+	 * System.err.println(e.getMessage()); } // making the connection try { con
+	 * = DriverManager.getConnection(url, "40108307", "CZB6355"); // create a
+	 * statement object stmt = con.createStatement(); // supply the statement
+	 * object with a string to execute Staff staff = new Staff(); ResultSet rs =
+	 * stmt.executeQuery("select * from STAFF"); while (rs.next()) {
+	 * staff.setStaffID(Integer.parseInt(rs.getString("STAFF_ID")));
+	 * staff.setTitle(rs.getString("TITLE"));
+	 * staff.setFirstName(rs.getString("FIRST_NAME"));
+	 * staff.setLastName(rs.getString("LAST_NAME"));
+	 * staff.setPassword(rs.getString("STAFF_PASSWORD"));
+	 * staff.setRole(rs.getString("STAFF_ROLE"));
+	 * staff.setTeam(rs.getString("STAFF_TEAM"));
+	 * staff.setEmail(rs.getString("EMAIL_ADDRESS"));
+	 * staff.setTelephone(rs.getString("TELEPHONE")); allStaff.add(staff); } //
+	 * close statement object stmt.close(); // close connection con.close(); }
+	 * catch (SQLException ex) { System.err.println("SQLException: " +
+	 * ex.getMessage()); } return allStaff; }
+	 */
+
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
 
-	
 	public void calculateStatus() {
 		if (patientQueue.size() <= 10) {
 			// find the longest waiting time
@@ -240,6 +223,5 @@ public class GUIMain extends Application {
 			status = 4;
 		}
 	}
-	
-	
+
 }

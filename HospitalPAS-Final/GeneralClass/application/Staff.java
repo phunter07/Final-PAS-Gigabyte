@@ -46,24 +46,8 @@ public class Staff extends Person implements ILogin, IDisplay {
 
 	}
 
-	/**
-	 * constructor with args
-	 * 
-	 * @param title
-	 * 
-	 * @param firstName
-	 * @param lastName
-	 * @param gender
-	 * @param staffID
-	 * @param password
-	 */
-	public Staff(String title, String firstName, String lastName, char gender,
-			int staffID, String password) {
-		super(title, firstName, lastName, gender);
-		this.staffID = staffID;
-		this.password = password;
-
-	}
+	
+		
 	/**
 	 * 
 	 * @return the staff id
@@ -72,6 +56,27 @@ public class Staff extends Person implements ILogin, IDisplay {
 		return staffID;
 	}
 	
+	/**
+	 * Constructor with args
+	 * @author Clare O'Toole
+	 * @param staffID
+	 * @param password
+	 * @param role
+	 * @param email
+	 * @param telephone
+	 * @param team
+	 */
+	public Staff(int staffID, String password, String role, String email,
+			String telephone, String team) {
+		super();
+		this.staffID = staffID;
+		this.password = password;
+		this.role = role;
+		this.email = email;
+		this.telephone = telephone;
+		this.team = team;
+	}
+
 	/**
 	 * sets the staff ID
 	 * @author Jiang Zhe Heng

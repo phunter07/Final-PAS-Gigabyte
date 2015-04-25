@@ -48,6 +48,11 @@ public class GUIMain extends Application {
 	 * all patient in PAS,it is global variable
 	 */
 	public static List<Patient> allPatientList;
+	
+	/**
+	 * Array List to hold all staff members
+	 */
+	public static List<Staff> allStaff;
 
 	/**
 	 * alert in PAS,it is global variable
@@ -58,7 +63,8 @@ public class GUIMain extends Application {
 	 * status in PAS,it is global variable
 	 */
 	public static Integer status;
-	List<Staff> staffs = new ArrayList<Staff>();
+	
+	//List<Staff> staffs = new ArrayList<Staff>();
 
 	public static Patient nextPatient;
 	public static Staff user;
@@ -70,9 +76,10 @@ public class GUIMain extends Application {
 	 */
 	public void start(Stage primaryStage) {
 		allPatientList = new ArrayList<Patient>();
-		allPatientList = new ArrayList<Patient>();
+		allPatientList = new ArrayList<Patient>(); //why is this in twice?
 		patientQueue = new PatientQueue();
 		treatmentRoom = new TreatmentRoom[NUMBERS_OF_ROOM];
+		allStaff = new ArrayList<Staff>();
 		for (int loop = 0; loop < NUMBERS_OF_ROOM; loop++) {
 			GUIMain.treatmentRoom[loop] = new TreatmentRoom(loop, false);
 		}

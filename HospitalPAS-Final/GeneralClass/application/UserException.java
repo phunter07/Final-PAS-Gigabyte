@@ -7,6 +7,7 @@ package application;
  */
 public class UserException extends Exception {
 
+
 	/**
 	 * 
 	 */

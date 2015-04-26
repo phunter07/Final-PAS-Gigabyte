@@ -8,16 +8,16 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 public class PatientQueue extends LinkedList<Patient> {
-
-	private static final long serialVersionUID = 1L;
 
 	/**
 	 * default Constructor
 	 */
 	public PatientQueue() {
-		
+
 	}
 
 	/**
@@ -29,42 +29,63 @@ public class PatientQueue extends LinkedList<Patient> {
 	public PatientQueue(Collection<? extends Patient> c) {
 		super(c);
 	}
-
+	
+	
 	/**
-	 * Method to allow the patient to be added to the queue 
+	 * 
 	 */
+	/*
 	@Override
-	public boolean add(Patient patient) {
+	public boolean add(Patient patient){
 		if (this.size() < Constants.PATIENT_LIMIT_IN_QUEUE) {
 			super.add(patient);
-			this.sort(new SortPatientComparator());
+			this.sort(new SortPatientTriageComparator());
 			return true;
 		} else {
 			return false;
 		}
 	}
+	*/
 
 	/**
-	 * Method to calculate the number of patient waiting more than UpperMinutes
+	 * removes the patient from the top of the queue once they have moved to the
+	 * treatment room
 	 * 
 	 * @param patientQueue
 	 * @return
 	 */
-	public int patientNumberWaitingMoreThanUpperMinutes() {
-		int number = 0;
-		for (Patient patient : this) {
-			if (patient.getWaitingTime() >= Constants.UPPERMINUTES_QUEUE_LIMIT) {
-				number++;
-			}
-		}
-		return number;
+	public Patient pollPatientFromQueue(Queue<Patient> patientQueue) {
+		return patientQueue.poll();
 	}
 
 	/**
-	 * method to send an SMS to the On Call team when the queue reaches maximum
-	 * capacity
+	 * method to allow a patient to be added to the treatment room once the
+	 * treatmentroom is unoccupied
+	 * 
+	 * @param patient
+	 * @param treatmentRoom
+	 * @return
+	 * @throws UserException
 	 */
-	public boolean sendSMS() {
+	public boolean addPatientToTreatmentRoom(Patient patient,
+			TreatmentRoom treatmentRoom) throws UserException {
+		if (treatmentRoom.isOccupied() == false) {
+			treatmentRoom.setPatient(patient);
+			treatmentRoom.setOccupied(true);
+			return true;
+
+		} else {
+			throw new UserException(
+					"Can not add the patient to the treatment room");
+		}
+
+	}
+
+	/**
+	 * calling the method from SMSAlerts Class to send an SMS to the On Call
+	 * team when the queue reaches the maximum capacity of 10 patients
+	 */
+	public boolean queueAtMaximumCapacitySendSMSToOnCall() {
 
 		// creating an instance of the class SMSAlerts
 		SMSAlerts onCallAlerts = new SMSAlerts();
@@ -78,5 +99,4 @@ public class PatientQueue extends LinkedList<Patient> {
 		}
 		return false;
 	}
-
 }

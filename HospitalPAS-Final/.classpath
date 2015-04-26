@@ -4,8 +4,8 @@
 	<classpathentry kind="src" path="GeneralClass"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
-	<classpathentry kind="lib" path="/Hospital/javax.mail.jar"/>
-	<classpathentry kind="lib" path="/Hospital/jfxswt.jar"/>
-	<classpathentry kind="lib" path="/Hospital/mysql-connector-java-5.1.34-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Hannah/Dropbox/Programming 2/JARs/jfxswt.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Hannah/Dropbox/Programming 2/JARs/mail.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Hannah/Dropbox/Programming 2/JARs/mysql-connector-java-5.1.34-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

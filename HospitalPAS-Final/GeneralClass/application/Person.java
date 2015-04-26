@@ -1,6 +1,6 @@
 package application;
 
-public abstract class Person implements IDisplay {
+public abstract class Person {
 
 	private String title;
 	private String firstName;
@@ -117,14 +117,5 @@ public abstract class Person implements IDisplay {
 		}
 	}
 
-	/**
-	 * display results method
-	 */
-	@Override
-	public void displayAll() {
-		System.out.println("Title: " + this.title);
-		System.out.println("First Name: " + this.firstName);
-		System.out.println("Last Name: " + this.lastName);
-		System.out.println("Gender: " + this.gender);
-	}
+	
 }

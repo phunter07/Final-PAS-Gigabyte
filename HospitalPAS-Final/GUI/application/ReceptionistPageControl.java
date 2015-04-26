@@ -304,7 +304,7 @@ public class ReceptionistPageControl implements Initializable {
 		refreshTable();
 		refreshNextPatient();
 		refreshAlertTextArea();
-		status.setText(String.valueOf(GUIMain.status));
+		status.setText(String.valueOf(CalculateQueueStatus.status));
 	}
 
 	private void refreshAlertTextArea() {
@@ -377,8 +377,8 @@ public class ReceptionistPageControl implements Initializable {
 	 * @param treatmentRoom
 	 */
 	private void refreshTable() {
-		ObservableList<Patient> observableList=FXCollections.observableArrayList(GUIMain.allPatientList);
-		if (!GUIMain.allPatientList.isEmpty()) {
+		ObservableList<Patient> observableList=FXCollections.observableArrayList(GUIMain.patientPASList);
+		if (!GUIMain.patientPASList.isEmpty()) {
 			patientTable.setItems(null);
 			nhs_number
 					.setCellValueFactory(new PropertyValueFactory<Patient, Integer>(

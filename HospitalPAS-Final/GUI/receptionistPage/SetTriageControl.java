@@ -10,6 +10,7 @@ import application.GUIMain;
 import application.NurseTriage;
 import application.OnCallTeam;
 import application.Patient;
+import application.SetPatientTriage;
 import application.Triage;
 import application.UserException;
 import javafx.collections.FXCollections;
@@ -31,7 +32,7 @@ public class SetTriageControl implements Initializable {
 	/**
 	 * declaration of nurseTriage
 	 */
-	private NurseTriage nurseTriage = new NurseTriage();
+	private SetPatientTriage setTriage = new SetPatientTriage();
 
 	/**
 	 * declaration of the list of patient needed to be triaged
@@ -101,15 +102,14 @@ public class SetTriageControl implements Initializable {
 		if ((nhsNumber.getValue() != null)
 				&& (triageChoiceBox.getValue() != null)) {
 			try {
-				Patient patient = nurseTriage.findPatientByNhsNumber(
-						GUIMain.allPatientList, nhsNumber.getValue());
+				Patient patient = setTriage.findPatientByNhsNumber(
+						GUIMain.patientPASList, nhsNumber.getValue());
 				if (patient != null && patient.getTriage() == null) {
-					nurseTriage.categorisePatient(patient, Triage
+					setTriage.categorisePatient(patient, Triage
 							.valueOf(triageChoiceBox.getValue().toUpperCase()));
 					try {
-						nurseTriage.allocatePatient(patient,
-								GUIMain.allPatientList, GUIMain.patientQueue,
-								GUIMain.treatmentRoom, GUIMain.onCallTeamList);
+						setTriage.allocatePatient(patient,
+								GUIMain.patientPASList, GUIMain.patientQueue);
 					} catch (UserException e) {
 						warning.setText(e.getMessage());
 					}
@@ -162,8 +162,8 @@ public class SetTriageControl implements Initializable {
 	public void refresh() {
 		patientNeededToBeTriaged = FXCollections.observableArrayList();
 		nhsNeededToBeTriage = FXCollections.observableArrayList();
-		nurseTriage.findPatientNeededToBeTriage(patientNeededToBeTriaged,
-				GUIMain.allPatientList);
+		setTriage.findPatientToBeTriaged(patientNeededToBeTriaged,
+				GUIMain.patientPASList);
 		nhsOfPatientNeededToBeTriage();
 		refreshTable();
 		nhsNumber.setItems(nhsNeededToBeTriage);
@@ -175,7 +175,7 @@ public class SetTriageControl implements Initializable {
 	 * @author Jiang Zhe Heng
 	 */
 	public void refreshTable() {
-		if (!GUIMain.allPatientList.isEmpty()) {
+		if (!GUIMain.patientPASList.isEmpty()) {
 			patientTable.setItems(null);
 			nhs_number
 					.setCellValueFactory(new PropertyValueFactory<Patient, Integer>(

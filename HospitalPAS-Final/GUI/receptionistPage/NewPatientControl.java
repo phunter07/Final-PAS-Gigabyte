@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import application.GUIMain;
 import application.Patient;
 import application.Receptionist;
+import application.RegisterPatient;
 import application.UserException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -84,9 +85,9 @@ public class NewPatientControl implements Initializable {
 
 		@Override
 		public void run() {
-			receptionist=new Receptionist();
+			RegisterPatient RegisterPatient =new RegisterPatient();
 			try {
-				receptionist.registerPatientToAandE(GUIMain.allPatientList,
+				RegisterPatient.registerPatientToAandE(GUIMain.patientPASList,
 						patient);
 				
 //add patient to the list of the patient prepared to triage

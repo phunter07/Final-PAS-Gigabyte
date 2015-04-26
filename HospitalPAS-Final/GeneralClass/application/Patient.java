@@ -3,16 +3,22 @@ package application;
 import java.util.Date;
 
 /**
- * 
- * @author Paul,Jiang Zheheng
+ * Class to contain the details of the Patient
+ * @author Paul
  *
  */
-public class Patient extends Person implements IDisplay{
+public class Patient extends Person {
 
 	/**
 	 * declaration of var NHS number
 	 */
 	private int nhsNumer;
+
+	/**
+	 * declaration of address
+	 */
+	private String address;
+
 	/**
 	 * declaration of var blood group
 	 */
@@ -21,34 +27,34 @@ public class Patient extends Person implements IDisplay{
 	 * declaration of var contact number
 	 */
 	private String contactNum;
-	
+
 	/**
-	 * declaration of triage
+	 * declaration of triage category to be set by Tirage Nurse
 	 */
 	private Triage triage;
-	
+
 	/**
 	 * declaration of allergies
 	 */
 	private String allergies;
-	
-	private long waitingTime;
-	
+
 	/**
-	 * declaration of arriveTime
+	 * declaration date arriveTime to take in the current date and time of when
+	 * the patient enters the queue - after being triaged
 	 */
-	private Date arriveTime;
-	
+	private Date timePatientJoinsQueue;
+
 	/**
-	 * declaration of leaveTime
+	 * declaration of date leaveTime to take in the current date and time of
+	 * when the patient leaves the queue and enters a treatment room
 	 */
 	private Date leaveTime;
-	
+
 	/**
-	 * declaration of address
+	 * declaration of instance variable to calculate the waiting time of the
+	 * patient in the queue
 	 */
-	private String address;
-	
+	private long waitingTime;
 
 	/**
 	 * default constructor
@@ -75,8 +81,8 @@ public class Patient extends Person implements IDisplay{
 	}
 
 	/**
-	 * 
-	 * @return Patients NHS Number
+	 * method to get the NHSNumber of the patient
+	 * @return 
 	 */
 	public int getNhsNumer() {
 		return nhsNumer;
@@ -84,25 +90,24 @@ public class Patient extends Person implements IDisplay{
 
 	/**
 	 * 
-	 * @param nhsNumer
-	 *            gets set
+	 * method to set the NHSNumber of the patient
+	 * @param 
 	 */
 	public void setNhsNumer(int nhsNumer) {
 		this.nhsNumer = nhsNumer;
 	}
 
 	/**
-	 * 
-	 * @return patients blood group
+	 * method to get the patients blood group
+	 * @return 
 	 */
 	public String getBloodGroup() {
 		return bloodGroup;
 	}
 
 	/**
-	 * 
+	 * method to set the patients blood group
 	 * @param string
-	 *            gets set
 	 */
 	public void setBloodGroup(String string) {
 
@@ -110,48 +115,39 @@ public class Patient extends Person implements IDisplay{
 	}
 
 	/**
-	 * 
-	 * @return patient contact number
+	 * method to get the patients contact number
+	 * @return 
 	 */
 	public String getContactNum() {
 		return contactNum;
 	}
 
 	/**
-	 * 
+	 * method to set the patients contact number
 	 * @param contactNum
-	 *            gets set
 	 */
 	public void setContactNum(String contactNum) {
 		this.contactNum = contactNum;
 	}
 
 	/**
-	 * @return the allergies
+	 * method to get the patients allergies
+	 * @return
 	 */
 	public String getAllergies() {
 		return allergies;
 	}
 
 	/**
-	 * @param allergies the allergies to set
+	 * method to set the allergies
+	 * @param allergies
 	 */
 	public void setAllergies(String allergies) {
 		this.allergies = allergies;
 	}
 
 	/**
-	 * overrides super display results method to show patients
-	 */
-	@Override
-	public void displayAll() {
-		super.displayAll();
-		System.out.println("NHS Number: " + this.nhsNumer);
-		System.out.println("Blood Group: " + this.bloodGroup);
-		System.out.println("Contact Number: " + this.contactNum);
-	}
-
-	/**
+	 * method to get the traige category of the patient
 	 * @return the triage
 	 */
 	public Triage getTriage() {
@@ -159,61 +155,72 @@ public class Patient extends Person implements IDisplay{
 	}
 
 	/**
-	 * @param triage the triage to set
+	 * method to set the traige category of the patient
+	 * @param triage
 	 */
 	public void setTriage(Triage triage) {
 		this.triage = triage;
 	}
 
-
 	/**
-	 * @return the address
+	 * method to get the patients address
+	 * @return
 	 */
 	public String getAddress() {
 		return address;
 	}
 
 	/**
-	 * @param address the address to set
+	 * method to set the patients address
+	 * @param address
 	 */
 	public void setAddress(String address) {
 		this.address = address;
 	}
 
 	/**
-	 * @return the arriveTime
+	 * method to get the arrival time of the patient into the queue
+	 * @return
 	 */
-	public Date getArriveTime() {
-		return arriveTime;
+	public Date getTimePatientJoinsQueue() {
+		return timePatientJoinsQueue;
 	}
 
 	/**
-	 * @param arriveTime the arriveTime to set
+	 * method to set the arrival time of the patient into the queue
+	 * @param arriveTime
 	 */
-	public void setArriveTime(Date arriveTime) {
-		this.arriveTime = arriveTime;
+	public void setTimePatientJoinsQueue(Date timePatientJoinsQueue) {
+		this.timePatientJoinsQueue = timePatientJoinsQueue;
 	}
 
 	/**
-	 * @return the leaveTime
+	 * method to get the time the patient leaves the queue
+	 * @return
 	 */
 	public Date getLeaveTime() {
 		return leaveTime;
 	}
 
 	/**
-	 * @param leaveTime the leaveTime to set
+	 * method to set the time the patient leaves the queue
+	 * @param leaveTime
 	 */
 	public void setLeaveTime(Date leaveTime) {
 		this.leaveTime = leaveTime;
 	}
 
 	/**
+	 * method to get the waiting time of patient
+	 * @return double waitingTime
+	 */
+
+	/**
 	 * @return the waitingTime
 	 */
 	public Long getWaitingTime() {
-		if(this.getArriveTime()!=null){
-			this.waitingTime=new Date().getTime()-this.getArriveTime().getTime();
+		if(this.getTimePatientJoinsQueue()!=null){
+			this.waitingTime=new Date().getTime()-this.getTimePatientJoinsQueue().getTime();
 			}else{
 				this.waitingTime=0;
 			}

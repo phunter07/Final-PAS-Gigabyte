@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import javafx.application.Application;
@@ -19,216 +21,145 @@ import javafx.scene.Scene;
 
 public class GUIMain extends Application {
 
-
-
 	/**
-	 * the limit number of treatment room,it is global variable
-	 */
-	public final static int NUMBERS_OF_ROOM = 1;
-	/**
-	 * the limit number of on call team
-	 */
-	public final static int NUMBERS_OF_ONCALLTEAM = 1;
-
-	/**
-	 * all treatment room in PAS,it is global variable
+	 * declaration of array for treatment rooms
 	 */
 	public static TreatmentRoom[] treatmentRoom;
 
 	/**
-	 * all on call team in PAS,it is global variable
+	 * List containing the details of all the patients in the PAS
 	 */
-	public static List<OnCallTeam> onCallTeamList;
+	public static List<Patient> patientPASList;
+	
 	/**
-	 * patient queue in PAS,it is global variable
+	 * instance variable to allow staff to log in to the system
+	 */
+	public static Staff user;
+	
+	/**
+	 * instance variable to declare the next patient within the system
+	 */
+	public static Patient nextPatient;
+	
+	/**
+	 * declaration of class patientQueue
 	 */
 	public static PatientQueue patientQueue;
 
 	/**
-	 * all patient in PAS,it is global variable
-	 */
-	public static List<Patient> allPatientList;
-
-	/**
-	 * alert in PAS,it is global variable
-	 */
-	public static String alert;
-
-	/**
-	 * status in PAS,it is global variable
-	 */
-	public static Integer status;
-	List<Staff> staffs = new ArrayList<Staff>();
-
-	public static Patient nextPatient;
-	public static Staff user;
-
-	/**
-	 * Initialize all global vars
+	 * main method to launch the system
 	 * 
-	 * @author Jiang Zhe Heng
+	 * @param args
 	 */
-	public void start(Stage primaryStage) {
-		allPatientList = new ArrayList<Patient>();
-		allPatientList = new ArrayList<Patient>();
-		patientQueue = new PatientQueue();
-		treatmentRoom = new TreatmentRoom[NUMBERS_OF_ROOM];
-		for (int loop = 0; loop < NUMBERS_OF_ROOM; loop++) {
-			GUIMain.treatmentRoom[loop] = new TreatmentRoom(loop, false);
-		}
-		onCallTeamList = new ArrayList<OnCallTeam>();
-		for (int loop = 0; loop < NUMBERS_OF_ONCALLTEAM; loop++) {
-			GUIMain.onCallTeamList.add(new OnCallTeam());
-		}
-		try {
+	public static void main(String args[]) {
+		// launch the system
+		launch(args);
 
+	}
+
+	/**
+	 * Method to set up the FXML and call the thread to start the system
+	 */
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+
+		try {
 			Parent root = FXMLLoader.load(getClass().getResource(
 					"/application/LoginScreen.fxml"));
-
 			Scene scene = new Scene(root, 450, 400);
-
-			primaryStage.setTitle("FXML Welcome");
+			primaryStage.setTitle("FXMLLogin");
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
 			threadStart();
-
 			primaryStage.show();
-		} catch (Exception e) {
-			e.printStackTrace();
+			// need to create exceptions and give them suitable names
+		} catch (Exception stageNotFound) {
+			// do we need to print the stack trace?
+			stageNotFound.printStackTrace();
 		}
 
-	}
-
-	public void threadStart() {
-		// this thread is used to deal with every process need refresh every
-		// seconds
-		Thread freshThread = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				while (true) {
-					try {
-
-						Thread.sleep(Constants.REFRESHTIME);
-						refresh();
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-		});
-		freshThread.setDaemon(true);
-		freshThread.start();
-		// this thread is used to deal with send alert, it will refresh based on
-		// REFRESHTIME until more than two patient wait more than 30 minutes
-		Thread alertThread = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				while (true) {
-
-					try {
-						Thread.sleep(Constants.REFRESHTIME);
-						if (patientQueue
-								.patientNumberWaitingMoreThanUpperMinutes() >= 2) {
-							System.out.println("Add hospital manager send alert");
-
-							Thread.sleep(5 * 60 * 1000);
-						}
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-
-					}
-				}
-			}
-		});
-		alertThread.setDaemon(true);
-		alertThread.start();
-
-	}
-
-	public void refresh() {
-		patientQueue.sort(new SortPatientComparator());
-		calculateStatus();
 	}
 
 	/**
-	 * PAUL 
-	 * Can you find out where this goes and move it? 
-	 * Cheers
+	 * Method to start the thread for the system
 	 */
-	/*private static List<Staff> getAllStaff() {
-		List<Staff> allStaff = new ArrayList<Staff>();
-		String url = "jdbc:mysql://web2.eeecs.qub.ac.uk/40108307";
-		Connection con;
-		Statement stmt;
-		// loading driver
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (java.lang.ClassNotFoundException e) {
-			System.err.print("ClassNotFoundException: ");
-			System.err.println(e.getMessage());
-		}
-		// making the connection
-		try {
-			con = DriverManager.getConnection(url, "40108307", "CZB6355");
-			// create a statement object
-			stmt = con.createStatement();
-			// supply the statement object with a string to execute
-			Staff staff = new Staff();
-			ResultSet rs = stmt.executeQuery("select * from STAFF");
-			while (rs.next()) {
-				staff.setStaffID(Integer.parseInt(rs.getString("STAFF_ID")));
-				staff.setTitle(rs.getString("TITLE"));
-				staff.setFirstName(rs.getString("FIRST_NAME"));
-				staff.setLastName(rs.getString("LAST_NAME"));
-				staff.setPassword(rs.getString("STAFF_PASSWORD"));
-				staff.setRole(rs.getString("STAFF_ROLE"));
-				staff.setTeam(rs.getString("STAFF_TEAM"));
-				staff.setEmail(rs.getString("EMAIL_ADDRESS"));
-				staff.setTelephone(rs.getString("TELEPHONE"));
-				allStaff.add(staff);
-			}
-			// close statement object
-			stmt.close();
-			// close connection
-			con.close();
-		} catch (SQLException ex) {
-			System.err.println("SQLException: " + ex.getMessage());
-		}
-		return allStaff;
-	}
+	public void threadStart() {
+		
+		//calling method to instantiate Patient List
+		instantiatePatientList();
 
-	public static void main(String[] args) {
-		launch(args);
-	}
-	*/
+		//calling method to instantiate Patient Queue
+		instantiatePatientQueue();
+		
+		// calling method to instantiate treatment rooms
+		instantiateTreatmentRooms();
 
-	
-	public void calculateStatus() {
-		if (patientQueue.size() <= 10) {
-			// find the longest waiting time
-			long longest = 0;
-			for (Patient patient : patientQueue) {
-				if (patient.getWaitingTime() > longest) {
-					longest = patient.getWaitingTime() / 1000 / 60;
+		// declaration of threat to kick off when login screen is loaded
+		Thread loginThread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+
+				while (true) {
+					try {
+						// calling the refresh time of the thread from the
+						// constants class which is set at 30 seconds
+						Thread.sleep(Constants.REFRESHTIME);
+						refresh();
+						// need to create this exception
+					} catch (InterruptedException threadInterrupted) {
+						threadInterrupted.printStackTrace();
+					}
 				}
 			}
-			if (longest >= 0 && longest < 10) {
-				status = 1;
-			} else if (longest >= 10 && longest < 20) {
-				status = 2;
-			} else if (longest >= 20) {
-				status = 3;
-			} else {
-				status = 4;
-			}
-		} else {
-			status = 4;
-		}
+
+		});
+		loginThread.setDaemon(true);
+		loginThread.start();
+	}
+
+	/**
+	 * method to refresh the queue when it is called in the thread
+	 */
+	public void refresh() {
+		// queue needs to go in here to be sorted
+		// call to calculate the queue the status
+		// call method to write the queue to file
+
 	}
 	
+	/**
+	 * method to instntiate patient list
+	 */
+	public void instantiatePatientList(){
+		
+		patientPASList = new LinkedList<Patient>();
+		
+	}
 	
+	/**
+	 * method to instntiate patient queue
+	 */
+	public void instantiatePatientQueue(){
+		
+		patientQueue = new PatientQueue();
+		
+	}
+
+	/**
+	 * method to instantiate the teatment rooms at the beginning of the program
+	 */
+	public void instantiateTreatmentRooms() {
+
+		// declaring the number of rooms to 5
+		treatmentRoom = new TreatmentRoom[Constants.NUMBERS_OF_ROOM];
+
+		for (int loop = 0; loop < Constants.NUMBERS_OF_ROOM; loop++) {
+			// setting the initial state of each treatment room to unoccupied
+			// and a new date
+			treatmentRoom[loop] = new TreatmentRoom(loop, false, new Date());
+
+		}
+
+	}
+
 }
